@@ -1,0 +1,166 @@
+﻿@model global::Cronometro.Models.Cronometro
+<style>
+    .contenedor {
+        width: 420px;
+        margin: 40px auto;
+        padding: 25px;
+        background-color: white;
+        border: 1px solid gray;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    .tiempo {
+        font-size: 45px;
+        margin: 25px 0;
+    }
+
+    .boton {
+        padding: 10px 15px;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    .vueltas {
+        margin-top: 25px;
+        text-align: left;
+        border-top: 1px solid gray;
+        padding-top: 10px;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+
+<div class="contenedor">
+
+    <h1>Cronómetro Online</h1>
+
+    <div class="tiempo" id="tiempo">
+        00:00:00.00
+    </div>
+
+    <button class="boton" onclick="iniciar()">Iniciar</button>
+
+    <button class="boton" onclick="pausar()">Pausar</button>
+
+    <button class="boton" onclick="reiniciar()">Reiniciar</button>
+
+    <br />
+
+    <button class="boton" onclick="registrarVuelta()">
+        Registrar vuelta
+    </button>
+
+    <p id="error" class="error"></p>
+
+    <div class="vueltas">
+
+        <h3>Vueltas registradas:</h3>
+
+        <ol id="listaVueltas">
+        </ol>
+
+    </div>
+
+</div>
+
+<script>
+
+    var tiempoInicio = 0;
+    var tiempoTranscurrido = 0;
+    var intervalo = null;
+    var numeroVuelta = 0;
+
+    function mostrarTiempo() {
+
+        var horas = Math.floor(tiempoTranscurrido / 3600000);
+
+        var minutos = Math.floor((tiempoTranscurrido % 3600000) / 60000);
+
+        var segundos = Math.floor((tiempoTranscurrido % 60000) / 1000);
+
+        var centesimas = Math.floor((tiempoTranscurrido % 1000) / 10);
+
+        document.getElementById("tiempo").innerText =
+            String(horas).padStart(2, '0') + ":" +
+            String(minutos).padStart(2, '0') + ":" +
+            String(segundos).padStart(2, '0') + "." +
+            String(centesimas).padStart(2, '0');
+    }
+
+    function iniciar() {
+
+        if (intervalo == null) {
+
+            tiempoInicio = Date.now() - tiempoTranscurrido;
+
+            intervalo = setInterval(function () {
+
+                tiempoTranscurrido = Date.now() - tiempoInicio;
+
+                mostrarTiempo();
+
+            }, 10);
+        }
+
+        document.getElementById("error").innerText = "";
+    }
+
+    function pausar() {
+
+        if (intervalo != null) {
+
+            clearInterval(intervalo);
+
+            intervalo = null;
+
+            tiempoTranscurrido = Date.now() - tiempoInicio;
+
+            mostrarTiempo();
+        }
+    }
+
+    function reiniciar() {
+
+        clearInterval(intervalo);
+
+        intervalo = null;
+
+        tiempoInicio = 0;
+
+        tiempoTranscurrido = 0;
+
+        numeroVuelta = 0;
+
+        document.getElementById("listaVueltas").innerHTML = "";
+
+        document.getElementById("error").innerText = "";
+
+        mostrarTiempo();
+    }
+
+    function registrarVuelta() {
+
+        if (tiempoTranscurrido == 0) {
+
+            document.getElementById("error").innerText =
+                "ERROR: Primero debes iniciar el cronómetro.";
+
+            return;
+        }
+
+        numeroVuelta++;
+
+        var vuelta = document.createElement("li");
+
+        vuelta.innerText = "Vuelta " + numeroVuelta + ": " +
+            document.getElementById("tiempo").innerText;
+
+        document.getElementById("listaVueltas").appendChild(vuelta);
+
+        document.getElementById("error").innerText = "";
+    }
+
+</script>
