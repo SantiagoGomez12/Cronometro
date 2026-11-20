@@ -37,15 +37,15 @@
 
     <h1>Cronómetro Online</h1>
 
-    <div class="tiempo" id="tiempo">
+          <div class="tiempo" id="tiempo">
         00:00:00.00
     </div>
 
-    <button class="boton" onclick="iniciar()">Iniciar</button>
+         <button class="boton" onclick="iniciar()">Iniciar</button>
 
-    <button class="boton" onclick="pausar()">Pausar</button>
-
-    <button class="boton" onclick="reiniciar()">Reiniciar</button>
+        <button class="boton" onclick="pausar()">Pausar</button>
+    
+         <button class="boton" onclick="reiniciar()">Reiniciar</button>
 
     <br />
 
@@ -68,37 +68,37 @@
 
 <script>
 
-    var tiempoInicio = 0;
-    var tiempoTranscurrido = 0;
-    var intervalo = null;
-    var numeroVuelta = 0;
+        var tiempoInicio = 0;
+            var tiempoTranscurrido = 0;
+            var intervalo = null;
+        var numeroVuelta = 0;
 
     function mostrarTiempo() {
 
-        var horas = Math.floor(tiempoTranscurrido / 3600000);
+                var horas = Math.floor(tiempoTranscurrido / 3600000);
 
-        var minutos = Math.floor((tiempoTranscurrido % 3600000) / 60000);
+                var minutos = Math.floor((tiempoTranscurrido % 3600000) / 60000);
 
-        var segundos = Math.floor((tiempoTranscurrido % 60000) / 1000);
+                var segundos = Math.floor((tiempoTranscurrido % 60000) / 1000);
 
-        var centesimas = Math.floor((tiempoTranscurrido % 1000) / 10);
+                var centesimas = Math.floor((tiempoTranscurrido % 1000) / 10);
 
         document.getElementById("tiempo").innerText =
-            String(horas).padStart(2, '0') + ":" +
-            String(minutos).padStart(2, '0') + ":" +
-            String(segundos).padStart(2, '0') + "." +
-            String(centesimas).padStart(2, '0');
+                        String(horas).padStart(2, '0') + ":" +
+                        String(minutos).padStart(2, '0') + ":" +
+                        String(segundos).padStart(2, '0') + "." +
+                        String(centesimas).padStart(2, '0');
     }
 
     function iniciar() {
 
         if (intervalo == null) {
 
-            tiempoInicio = Date.now() - tiempoTranscurrido;
+                tiempoInicio = Date.now() - tiempoTranscurrido;
 
-            intervalo = setInterval(function () {
+                intervalo = setInterval(function () {
 
-                tiempoTranscurrido = Date.now() - tiempoInicio;
+                    tiempoTranscurrido = Date.now() - tiempoInicio;
 
                 mostrarTiempo();
 
@@ -124,29 +124,29 @@
 
     function reiniciar() {
 
-        clearInterval(intervalo);
+                clearInterval(intervalo);
 
-        intervalo = null;
+                    intervalo = null;
 
-        tiempoInicio = 0;
+                    tiempoInicio = 0;
 
-        tiempoTranscurrido = 0;
+                    tiempoTranscurrido = 0;
 
-        numeroVuelta = 0;
+                    numeroVuelta = 0;
 
-        document.getElementById("listaVueltas").innerHTML = "";
+                    document.getElementById("listaVueltas").innerHTML = "";
 
-        document.getElementById("error").innerText = "";
+                    document.getElementById("error").innerText = "";
 
-        mostrarTiempo();
+                mostrarTiempo();
     }
 
     function registrarVuelta() {
 
         if (tiempoTranscurrido == 0) {
 
-            document.getElementById("error").innerText =
-                "ERROR: Primero debes iniciar el cronómetro.";
+                document.getElementById("error").innerText =
+                    "ERROR: Primero debes iniciar el cronómetro.";
 
             return;
         }
@@ -155,12 +155,12 @@
 
         var vuelta = document.createElement("li");
 
-        vuelta.innerText = "Vuelta " + numeroVuelta + ": " +
-            document.getElementById("tiempo").innerText;
+                vuelta.innerText = "vuelta " + numeroVuelta + ": " +
+                    document.getElementById("tiempo").innerText;
 
-        document.getElementById("listaVueltas").appendChild(vuelta);
+                     document.getElementById("listaVueltas").appendChild(vuelta);
 
-        document.getElementById("error").innerText = "";
+                      document.getElementById("error").innerText = "";
     }
 
 </script>

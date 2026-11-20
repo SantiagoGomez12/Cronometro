@@ -97,3 +97,4 @@ C:\Users\sango\source\repos\Cronometro\Cronometro\obj\Debug\net10.0\Cronometro.p
 C:\Users\sango\source\repos\Cronometro\Cronometro\obj\Debug\net10.0\Cronometro.genruntimeconfig.cache
 C:\Users\sango\source\repos\Cronometro\Cronometro\obj\Debug\net10.0\ref\Cronometro.dll
 C:\Users\sango\source\repos\Cronometro\Cronometro\obj\Debug\net10.0\Cronometro.csproj.Up2Date
+C:\Users\sango\source\repos\Cronometro\Cronometro\obj\Debug\net10.0\Cronometro.sourcelink.json
